@@ -3,10 +3,6 @@ import sys
 import os
 
 def load_csv_data():
-    """
-    Prompts the user for a filename, checks if it exists,
-    and extracts all fields into a list of dictionaries.
-    """
     filename = input("Enter the name of the CSV file to process (e.g., grades.csv): ")
 
     if not os.path.exists(filename):
@@ -31,9 +27,6 @@ def load_csv_data():
         sys.exit(1)
 
 def evaluate_grades(data):
-    """
-    Evaluates student grades from the parsed CSV data dictionary list.
-    """
     print("\n--- Processing Grades ---")
 
     if not data:
@@ -55,7 +48,6 @@ def evaluate_grades(data):
         score = item['score']
         weight = item['weight']
 
-        # Grade range check
         if not (0 <= score <= 100):
             print(f"Validation Error: Score for '{name}' must be between 0 and 100 (got {score}).")
             return
@@ -86,23 +78,18 @@ def evaluate_grades(data):
         print(f"Validation Error: Formative weight must equal 60 (got {formative_weight}) "
               f"and Summative weight must equal 40 (got {summative_weight}).")
         return
-
-    # GPA Calculation
     total_grade = formative_score + summative_score
     gpa = (total_grade / 100.0) * 5.0
 
-    # Pass/Fail Decision
     passed = (formative_score >= 30.0) and (summative_score >= 20.0)
     status = "PASSED" if passed else "FAILED"
 
-    # Resubmission Logic
     resubmission_str = "None"
     if failed_formatives:
         max_weight = max(item[1] for item in failed_formatives)
         eligible = [item[0] for item in failed_formatives if item[1] == max_weight]
         resubmission_str = ", ".join(eligible)
 
-    # Output Results
     print(f"Formatives (60): {formative_score:.1f}")
     print(f"Summatives (40): {summative_score:.1f}")
     print(f"GPA: {gpa:.3f}")
