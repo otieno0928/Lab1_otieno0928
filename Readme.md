@@ -23,4 +23,10 @@ Ensure you have Python 3 installed on your system and a properly formatted CSV f
    ./organizer.sh
    add the files,commit and push  
 
+N/B:
+**Execution Behavior:**
+<!--Directory Management: Checks if the archive/ folder exists; if not, it automatically creates it.--!>
+#Archival & Timestamping: Renames the active grades.csv using the timestamp format grades_YYYYMMDD-HHMMSS.csv and moves it into the archive/ directory.
+#Workspace Reset: Instantly generates a brand new, empty grades.csv file in the main folder using touch so the workspace is ready for new input.
+#Event Logging: Appends an entry recording the execution timestamp and file paths into organizer.log. EOF
 
